@@ -12,6 +12,14 @@ function App() {
         setPosts(response.data.posts);
       });
   };
+  const submitNewComment = (id) => (commentData) => {
+    axios
+      .post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/posts/${id}/comments`,
+        commentData
+      )
+      .then(() => loadPosts());
+  };
   useEffect(loadPosts, []);
   return (
     <div className="App">
@@ -20,7 +28,11 @@ function App() {
       </header>
       <div className="container">
         {posts.map((post) => (
-          <Post post={post} />
+          <Post
+            post={post}
+            key={post._id}
+            submitNewComment={submitNewComment(post._id)}
+          />
         ))}
       </div>
     </div>
