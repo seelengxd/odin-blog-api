@@ -9,6 +9,9 @@ const apiRouter = require("./routes/api");
 
 var app = express();
 
+const cors = require("cors");
+app.use(cors());
+
 // db setup
 require("dotenv").config();
 const mongoose = require("mongoose");
