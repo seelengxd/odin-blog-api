@@ -3,7 +3,8 @@ import { useState } from "react";
 function CommentForm({ deactivateForm, submitNewComment }) {
   const [message, setMessage] = useState("");
   const [name, setName] = useState("");
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     submitNewComment({ message, name });
   };
   return (
@@ -15,6 +16,7 @@ function CommentForm({ deactivateForm, submitNewComment }) {
           placeholder="Message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          required
         />
         <br />
         <input
@@ -23,6 +25,7 @@ function CommentForm({ deactivateForm, submitNewComment }) {
           placeholder="Your name..."
           value={name}
           onChange={(e) => setName(e.target.value)}
+          required
         />
         <button> Submit </button>
         <button className="delete" onClick={deactivateForm}>

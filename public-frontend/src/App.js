@@ -7,7 +7,7 @@ function App() {
   const [posts, setPosts] = useState([]);
   const loadPosts = () => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/api/posts`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/posts?published=true`)
       .then((response) => {
         setPosts(response.data.posts);
       });
