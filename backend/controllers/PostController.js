@@ -1,11 +1,14 @@
 const Post = require("../models/post");
 const Comment = require("../models/comment");
 const { body, validationResult } = require("express-validator");
+const passport = require("passport");
 
 const postValidators = [
   body("title", "Title cannot be empty!").isLength({ min: 1 }),
   body("content", "Content cannot be empty").isLength({ min: 1 }),
 ];
+
+const requireLogin = passport.authenticate("jwt", { session: false });
 
 exports.index = (req, res, next) => {
   Post.find({ ...req.query })
@@ -20,6 +23,7 @@ exports.index = (req, res, next) => {
 
 exports.create = [
   postValidators,
+  requireLogin,
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -38,6 +42,7 @@ exports.create = [
 
 exports.update = [
   postValidators,
+  requireLogin,
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -56,15 +61,20 @@ exports.update = [
   },
 ];
 
-exports.delete = (req, res, next) => {
-  Post.findByIdAndDelete(req.params.id, (err) => {
-    if (err) {
-      res.status(400).json({ errors: [{ msg: "ID probably doesn't exist" }] });
-    } else {
-      res.sendStatus(200);
-    }
-  });
-};
+exports.delete = [
+  requireLogin,
+  (req, res, next) => {
+    Post.findByIdAndDelete(req.params.id, (err) => {
+      if (err) {
+        res
+          .status(400)
+          .json({ errors: [{ msg: "ID probably doesn't exist" }] });
+      } else {
+        res.sendStatus(200);
+      }
+    });
+  },
+];
 
 exports.createComment = [
   body("message", "Message should not be empty.").isLength({ min: 1 }),
