@@ -83,6 +83,7 @@ exports.createComment = [
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       res.status(400).json(errors);
+      return;
     }
     Post.findById(req.params.id, (err, foundPost) => {
       if (err || !foundPost) {
