@@ -1,0 +1,22 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  display: flex;
+  padding: 10px 20px;
+  background-color: black;
+  color: white;
+}
+
+.container {
+  padding: 20px;
+}
+
+.post {
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 5px #aaa;
+}
