@@ -15,19 +15,34 @@ import AddIcon from "@mui/icons-material/Add";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [posts, setPosts] = useState([]);
   const [isSidebarOpen, setSidebarOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
+  const [loggedIn, setLoggedIn] = useState(true);
   const loadPosts = () => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_URL}/api/posts`)
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/posts`, {
+        withCredentials: true,
+      })
       .then((response) => {
         setPosts(response.data.posts);
+      })
+      .catch((err) => {
+        if (err.response && err.response.status === 401) {
+          setLoggedIn(false);
+        } else {
+          console.error(err);
+        }
       });
   };
   useEffect(loadPosts, []);
+  useEffect(() => {
+    if (!loggedIn) navigate("/login");
+  }, [loggedIn]);
   return (
     <div className="App">
       <SearchAppBar

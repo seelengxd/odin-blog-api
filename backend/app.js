@@ -10,7 +10,13 @@ const apiRouter = require("./routes/api");
 var app = express();
 
 const cors = require("cors");
-app.use(cors());
+// this is to prevent the cors error after setting {withCredentials: true} in frontend
+app.use(
+  cors({
+    credentials: true,
+    origin: ["http://localhost:3001", "http://localhost:3002"],
+  })
+);
 
 // db setup
 require("dotenv").config();
@@ -24,12 +30,19 @@ db.on("error", console.error.bind(console, "MongoDB connection error!"));
 const passport = require("passport");
 const passportJwt = require("passport-jwt");
 const JwtStrategy = passportJwt.Strategy;
-const ExtractJwt = passportJwt.ExtractJwt;
+
+const cookieExtractor = (req) => {
+  let token = null;
+  if (req && req.cookies) {
+    token = req.cookies.jwt;
+  }
+  return token;
+};
 
 passport.use(
   new JwtStrategy(
     {
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      jwtFromRequest: cookieExtractor,
       secretOrKey: process.env.JWT_SECRET,
     },
     function (jwt_payload, done) {

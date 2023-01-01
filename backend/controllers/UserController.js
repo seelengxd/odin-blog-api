@@ -18,12 +18,13 @@ exports.login = [
         res.sendStatus(401);
         return;
       }
-      console.log({ found_user });
       jwt.sign({ found_user }, process.env.JWT_SECRET, (err, token) => {
         if (err) {
           return next(err);
         }
-        res.status(200).json({ token });
+        res
+          .cookie("jwt", token, { httpOnly: true, secure: false })
+          .sendStatus(200);
       });
     });
   },

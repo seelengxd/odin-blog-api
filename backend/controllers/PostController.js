@@ -11,6 +11,13 @@ const postValidators = [
 const requireLogin = passport.authenticate("jwt", { session: false });
 
 exports.index = (req, res, next) => {
+  if (!req.query.published) {
+    requireLogin(req, res, () => {});
+    if (!req.user) {
+      res.sendStatus(401);
+      return;
+    }
+  }
   Post.find({ ...req.query })
     .populate("comments")
     .exec((err, posts) => {

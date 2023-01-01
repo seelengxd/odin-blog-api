@@ -10,20 +10,26 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
+  const navigate = useNavigate();
   const handleClose = () => setError(false);
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(`${process.env.REACT_APP_BACKEND_URL}/api/users/login`, {
-        username,
-        password,
-      })
-      .then((response) => console.log(response))
+      .post(
+        `${process.env.REACT_APP_BACKEND_URL}/api/users/login`,
+        {
+          username,
+          password,
+        },
+        { withCredentials: true }
+      )
+      .then(() => navigate("/"))
       .catch(() => setError(true));
   };
   return (
