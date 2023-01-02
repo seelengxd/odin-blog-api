@@ -83,6 +83,7 @@ function Home() {
                 post={post}
                 togglePublishPost={() => togglePublishPost(post)}
                 deletePost={() => deletePost(post._id)}
+                key={post._id}
               />
             ))}
         </Grid>

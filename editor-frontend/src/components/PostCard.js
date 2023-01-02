@@ -38,7 +38,11 @@ function PostCard({ post, togglePublishPost, deletePost }) {
               Publish
             </Button>
           )}
-          <Button variant="contained" color="success">
+          <Button
+            variant="contained"
+            color="success"
+            href={`/posts/${post._id}/edit`}
+          >
             <EditIcon sx={{ mr: 0.5 }} />
             Edit
           </Button>

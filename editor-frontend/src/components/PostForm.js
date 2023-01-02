@@ -13,14 +13,12 @@ import { useState } from "react";
 import Navigation from "./Navigation";
 
 function PostForm({ formTitle, post, handleSubmit }) {
-  post = post || { title: "", content: "", published: false };
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const [title, setTitle] = useState(post.title);
-  const [content, setContent] = useState(post.content);
-  const [published, setPublished] = useState(post.published);
+  const [title, setTitle] = useState(post ? post.title : "");
+  const [content, setContent] = useState(post ? post.content : " ");
+  const [published, setPublished] = useState(post ? post.published : false);
   const [error, setError] = useState(false);
   const handleClose = () => setError(false);
-
   return (
     <div className="App">
       <Navigation

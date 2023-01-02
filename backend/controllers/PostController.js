@@ -28,6 +28,19 @@ exports.index = (req, res, next) => {
     });
 };
 
+exports.show = [
+  requireLogin,
+  (req, res, next) => {
+    Post.findById(req.params.id, (err, post) => {
+      if (err) {
+        res.sendStatus(400);
+      } else {
+        res.json({ post });
+      }
+    });
+  },
+];
+
 exports.create = [
   postValidators,
   requireLogin,
