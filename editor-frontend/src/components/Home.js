@@ -1,15 +1,5 @@
-import {
-  Container,
-  Grid,
-  ListItem,
-  ListItemText,
-  Drawer,
-  List,
-  ListItemIcon,
-  ListItemButton,
-} from "@mui/material";
+import { Container, Grid } from "@mui/material";
 import "../App.css";
-import SearchAppBar from "./SearchAppBar";
 import PostCard from "./PostCard";
 import { useEffect, useState } from "react";
 import axios from "axios";
