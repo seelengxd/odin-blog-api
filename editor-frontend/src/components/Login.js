@@ -47,7 +47,7 @@ function Login() {
           <Typography variant="h2" component="h1">
             Dashboard
           </Typography>
-          <Box>
+          <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
             <TextField
               type="text"
               name="username"

@@ -29,3 +29,9 @@ exports.login = [
     });
   },
 ];
+
+exports.logout = [
+  (req, res) => {
+    res.clearCookie("jwt").end();
+  },
+];

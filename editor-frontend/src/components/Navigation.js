@@ -9,7 +9,9 @@ import {
   ListItemButton,
   ListItemText,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import SearchAppBar from "./SearchAppBar";
+import axios from "axios";
 
 function Navigation({
   searchQuery,
@@ -18,6 +20,12 @@ function Navigation({
   setSidebarOpen,
   showSearchBar,
 }) {
+  const navigate = useNavigate();
+  const logout = () => {
+    axios
+      .get(`${process.env.REACT_APP_BACKEND_URL}/api/users//logout`)
+      .then(() => navigate("/login"));
+  };
   return (
     <>
       <SearchAppBar
@@ -45,7 +53,7 @@ function Navigation({
             </ListItemButton>
           </ListItem>
           <ListItem>
-            <ListItemButton>
+            <ListItemButton onClick={logout}>
               <ListItemIcon>
                 <LogoutIcon />
               </ListItemIcon>
