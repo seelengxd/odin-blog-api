@@ -5,7 +5,7 @@ import UnpublishedIcon from "@mui/icons-material/Unpublished";
 import { Typography, Paper, Box, Button, Grid } from "@mui/material";
 import { DateTime } from "luxon";
 
-function PostCard({ post, togglePublishPost }) {
+function PostCard({ post, togglePublishPost, deletePost }) {
   return (
     <Grid item sm={12} md={6} padding={5}>
       <Paper sx={{ padding: 3 }} elevation={3}>
@@ -42,7 +42,7 @@ function PostCard({ post, togglePublishPost }) {
             <EditIcon sx={{ mr: 0.5 }} />
             Edit
           </Button>
-          <Button variant="contained" color="error">
+          <Button variant="contained" color="error" onClick={deletePost}>
             <DeleteIcon sx={{ mr: 0.5 }} />
             Delete
           </Button>

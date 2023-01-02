@@ -47,7 +47,22 @@ function Home() {
         },
         { withCredentials: true }
       )
-      .then((response) => loadPosts())
+      .then(() => loadPosts())
+      .catch((err) => {
+        if (err.response && err.response.status === 401) {
+          setLoggedIn(false);
+        } else {
+          console.error(err);
+        }
+      });
+  };
+
+  const deletePost = (id) => {
+    axios
+      .delete(`${process.env.REACT_APP_BACKEND_URL}/api/posts/${id}`, {
+        withCredentials: true,
+      })
+      .then(() => loadPosts())
       .catch((err) => {
         if (err.response && err.response.status === 401) {
           setLoggedIn(false);
@@ -77,6 +92,7 @@ function Home() {
               <PostCard
                 post={post}
                 togglePublishPost={() => togglePublishPost(post)}
+                deletePost={() => deletePost(post._id)}
               />
             ))}
         </Grid>
