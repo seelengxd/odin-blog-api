@@ -11,11 +11,10 @@ import {
 import "../App.css";
 import SearchAppBar from "./SearchAppBar";
 import PostCard from "./PostCard";
-import AddIcon from "@mui/icons-material/Add";
-import LogoutIcon from "@mui/icons-material/Logout";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Navigation from "./Navigation";
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -63,31 +62,13 @@ function Home() {
   }, [loggedIn]);
   return (
     <div className="App">
-      <SearchAppBar
-        openSidebar={() => setSidebarOpen(true)}
+      <Navigation
+        isSidebarOpen={isSidebarOpen}
+        setSidebarOpen={setSidebarOpen}
         searchQuery={searchQuery}
         setSearchQuery={setSearchQuery}
+        showSearchBar={true}
       />
-      <Drawer open={isSidebarOpen} onClose={() => setSidebarOpen(false)}>
-        <List disablePadding>
-          <ListItem>
-            <ListItemButton>
-              <ListItemIcon>
-                <AddIcon />
-              </ListItemIcon>
-              <ListItemText>New post</ListItemText>
-            </ListItemButton>
-          </ListItem>
-          <ListItem>
-            <ListItemButton>
-              <ListItemIcon>
-                <LogoutIcon />
-              </ListItemIcon>
-              <ListItemText>Log out</ListItemText>
-            </ListItemButton>
-          </ListItem>
-        </List>
-      </Drawer>
       <Container>
         <Grid container padding={5} spacing={3}>
           {posts

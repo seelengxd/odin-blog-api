@@ -47,21 +47,14 @@ function Login() {
           <Typography variant="h2" component="h1">
             Dashboard
           </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              gap: 1,
-              alignItems: "flex-start",
-              padding: 1,
-            }}
-          >
+          <Box>
             <TextField
               type="text"
               name="username"
               label="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              fullWidth
               required
             />
             <TextField
@@ -70,6 +63,7 @@ function Login() {
               label="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              fullWidth
               required
             />
             <Button variant="contained" type="submit">

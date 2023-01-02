@@ -55,6 +55,7 @@ export default function SearchAppBar({
   openSidebar,
   searchQuery,
   setSearchQuery,
+  showSearchBar,
 }) {
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -78,17 +79,19 @@ export default function SearchAppBar({
           >
             Dashboard
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search…"
-              inputProps={{ "aria-label": "search" }}
-              value={searchQuery}
-              onChange={({ target }) => setSearchQuery(target.value)}
-            />
-          </Search>
+          {showSearchBar && (
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search…"
+                inputProps={{ "aria-label": "search" }}
+                value={searchQuery}
+                onChange={({ target }) => setSearchQuery(target.value)}
+              />
+            </Search>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
