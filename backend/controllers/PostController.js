@@ -48,8 +48,12 @@ exports.create = [
 ];
 
 exports.update = [
-  postValidators,
-  requireLogin,
+  body("title", "Title cannot be empty!")
+    .optional({ nullable: true })
+    .isLength({ min: 1 }),
+  body("content", "Content cannot be empty")
+    .optional({ nullable: true })
+    .isLength({ min: 1 }),
   (req, res, next) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {

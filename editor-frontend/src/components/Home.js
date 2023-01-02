@@ -39,6 +39,24 @@ function Home() {
         }
       });
   };
+  const togglePublishPost = (post) => {
+    axios
+      .put(
+        `${process.env.REACT_APP_BACKEND_URL}/api/posts/${post._id}`,
+        {
+          published: !post.published,
+        },
+        { withCredentials: true }
+      )
+      .then((response) => loadPosts())
+      .catch((err) => {
+        if (err.response && err.response.status === 401) {
+          setLoggedIn(false);
+        } else {
+          console.error(err);
+        }
+      });
+  };
   useEffect(loadPosts, []);
   useEffect(() => {
     if (!loggedIn) navigate("/login");
@@ -75,7 +93,10 @@ function Home() {
           {posts
             .filter((post) => post.title.includes(searchQuery))
             .map((post) => (
-              <PostCard post={post} />
+              <PostCard
+                post={post}
+                togglePublishPost={() => togglePublishPost(post)}
+              />
             ))}
         </Grid>
       </Container>
