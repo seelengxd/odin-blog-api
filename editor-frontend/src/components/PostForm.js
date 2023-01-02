@@ -17,6 +17,7 @@ function PostForm({ formTitle, post, handleSubmit }) {
   const [title, setTitle] = useState(post ? post.title : "");
   const [content, setContent] = useState(post ? post.content : " ");
   const [published, setPublished] = useState(post ? post.published : false);
+  console.log(published);
   const [error, setError] = useState(false);
   const handleClose = () => setError(false);
   return (
@@ -77,7 +78,7 @@ function PostForm({ formTitle, post, handleSubmit }) {
                 <Typography variant="body1">Publish Post:</Typography>
                 <Switch
                   name="published"
-                  value={published}
+                  defaultChecked={published}
                   onChange={() => setPublished(!published)}
                 />
               </Box>
